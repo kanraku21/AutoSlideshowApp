@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                     PERMISSIONS_REQUEST_CODE
                 )
+
             }
 
         } else {
@@ -71,11 +72,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         requestCode: Int,
         permissions: Array<String>,
         grantResults: IntArray
+
     ) {
         when (requestCode) {
             PERMISSIONS_REQUEST_CODE ->
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getContentsInfo()
+                } else {
+                    button1.setEnabled(false)
+                    button2.setEnabled(false)
+                    button3.setEnabled(false)
+
                 }
         }
     }
