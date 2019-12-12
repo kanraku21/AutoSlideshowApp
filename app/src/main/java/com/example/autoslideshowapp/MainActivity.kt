@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.content.ContentUris
 import android.database.Cursor
 import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
@@ -78,7 +79,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             PERMISSIONS_REQUEST_CODE ->
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getContentsInfo()
+                    button1.setEnabled(true)
+                    button2.setEnabled(true)
+                    button3.setEnabled(true)
                 } else {
+                    val view = findViewById<View>(android.R.id.content)
+                    Snackbar.make(view, "アクセスの許可をしてください", Snackbar.LENGTH_INDEFINITE).setAction("確認する")
+                    {
+                        requestPermissions(
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                            PERMISSIONS_REQUEST_CODE
+                        )
+                    }.show()
+
                     button1.setEnabled(false)
                     button2.setEnabled(false)
                     button3.setEnabled(false)
